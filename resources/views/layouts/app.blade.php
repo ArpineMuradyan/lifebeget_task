@@ -30,6 +30,7 @@
                     @include('layouts.sidebar')
                 @endif
             @endauth
+            
             @yield('content')
         </div>
     </div>
