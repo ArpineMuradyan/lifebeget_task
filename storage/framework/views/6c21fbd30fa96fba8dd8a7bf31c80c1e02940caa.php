@@ -1,0 +1,254 @@
+<?php echo $__env->make('layouts.auth_layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+
+<?php $__env->startSection('content'); ?>
+    <div class="container mt-10">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header"><?php echo e(__('Edit')); ?></div>
+                    <input type="hidden" id="user_role" name="quotation" value="<?php echo e(Auth::user()->roles_id); ?>">
+                    <input type="hidden" id="product_attribute" value="<?php echo e($product->attributes); ?>">
+                    <input type="hidden" id="product_id" value="<?php echo e($product->id); ?>">
+                    <div class="card-body">
+                        <form method="post">
+                            <?php echo csrf_field(); ?>
+                            <img id="product_photo" class="m-auto" width="400px" height="400px" photo_name="<?php echo e($product->photo); ?>" src="<?php echo e(asset('images/products/'. $product->photo)); ?>" alt="">
+                            <div class="form-group row mt-2">
+                                <label for="name" class="col-md-4 col-form-label text-md-right"><?php echo e(__('Name')); ?></label>
+
+                                <div class="col-md-6">
+                                    <input value="<?php echo e($product->name); ?>" id="name" type="text" <?php if(Auth::user()->roles_id!=1): ?> disabled <?php endif; ?> class="form-control <?php if(session()->get('error') && session()->get('error')->name): ?> is-invalid <?php endif; ?>" name="name" required autocomplete="name" autofocus>
+
+                                    <?php if(session()->get('error') && session()->get('error')->name): ?>
+                                        <div class="alert text-danger mb-0 p-0"><?php echo e(session()->get('error')->name[0]); ?></div>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="description" class="col-md-4 col-form-label text-md-right"><?php echo e(__('Description')); ?></label>
+
+                                <div class="col-md-6">
+                                    <textarea <?php if(Auth::user()->roles_id!=1): ?> disabled <?php endif; ?> id="description" class="form-control <?php if(session()->get('error') && session()->get('error')->description): ?> is-invalid <?php endif; ?>" name="description" required autocomplete="description"><?php echo e($product->description); ?></textarea>
+
+                                    <?php if(session()->get('error') && session()->get('error')->description): ?>
+                                        <div class="alert text-danger mb-0 p-0"><?php echo e(session()->get('error')->description[0]); ?></div>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="photo" class="col-md-4 col-form-label text-md-right"><?php echo e(__('Photo')); ?></label>
+
+                                <div class="col-md-6">
+                                    <input id="photo" type="file" <?php if(Auth::user()->roles_id!=1): ?> disabled <?php endif; ?> class="form-control <?php if(session()->get('error') && session()->get('error')->photo): ?> is-invalid <?php endif; ?>" name="photo" required autocomplete="photo" autofocus>
+
+                                    <?php if(session()->get('error') && session()->get('error')->photo): ?>
+                                        <div class="alert text-danger mb-0 p-0"><?php echo e(session()->get('error')->photo[0]); ?></div>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+
+                            <div class="card list-group-horizontal">
+                                <div class="card-header" id="attribute_edit_panel">
+                                    <svg id="new_attribute" width="20px" height="20px" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome  - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M432 256c0 17.69-14.33 32.01-32 32.01H256v144c0 17.69-14.33 31.99-32 31.99s-32-14.3-32-31.99v-144H48c-17.67 0-32-14.32-32-32.01s14.33-31.99 32-31.99H192v-144c0-17.69 14.33-32.01 32-32.01s32 14.32 32 32.01v144h144C417.7 224 432 238.3 432 256z"/></svg>
+                                </div>
+                                <div class="card-body" id="add_product_attribute">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group row mt-2">
+                                <label for="email" class="col-md-4 col-form-label text-md-right"><?php echo e(__('Category')); ?></label>
+
+                                <div class="col-md-6">
+                                    <select name="category_id" <?php if(Auth::user()->roles_id!=1): ?> disabled <?php endif; ?> id="category_id" class="form-control <?php if(session()->get('error') && session()->get('error')->category_id): ?> is-invalid <?php endif; ?>">
+                                        <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($category->id); ?>"  <?php if($category->id == $product->category_id): ?> selected <?php endif; ?> ><?php echo e($category->name); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    </select>
+
+                                    <?php if(session()->get('error') && session()->get('error')->category_id): ?>
+                                        <div class="alert text-danger mb-0 p-0"><?php echo e(session()->get('error')->category_id[0]); ?></div>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="meta_title" class="col-md-4 col-form-label text-md-right"><?php echo e(__('Meta title')); ?></label>
+
+                                <div class="col-md-6">
+                                    <input value="<?php echo e($product->meta_title); ?>" id="meta_title" type="text" class="form-control <?php if(session()->get('error') && session()->get('error')->meta_title): ?> is-invalid <?php endif; ?>" name="meta_title" required autocomplete="meta_title" autofocus>
+
+                                    <?php if(session()->get('error') && session()->get('error')->meta_title): ?>
+                                        <div class="alert text-danger mb-0 p-0"><?php echo e(session()->get('error')->meta_title[0]); ?></div>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="meta_description" class="col-md-4 col-form-label text-md-right"><?php echo e(__('Meta description')); ?></label>
+
+                                <div class="col-md-6">
+                                    <textarea id="meta_description" type="meta_description" class="form-control <?php if(session()->get('error') && session()->get('error')->meta_description): ?> is-invalid <?php endif; ?>" name="meta_description" required autocomplete="meta_description"><?php echo e($product->meta_description); ?></textarea>
+
+                                    <?php if(session()->get('error') && session()->get('error')->meta_description): ?>
+                                        <div class="alert text-danger mb-0 p-0"><?php echo e(session()->get('error')->meta_description[0]); ?></div>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+
+                            <div class="form-group row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    <input type="button" class="btn btn-primary" value="Create" id="submit_button">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $( document ).ready(function() {
+            var id = $("#product_id").val()
+            if($("#user_role").val() != 1){
+                var disabled= "disabled"
+            } else {
+                var disabled= ""
+            }
+            var attribute_array = []
+            var attribute_json = []
+            $('#photo').change( function(event) {
+                $("#product_photo").attr('src',URL.createObjectURL(event.target.files[0]));
+            });
+            jQuery.each(JSON.parse($("#product_attribute").val()), function( i, val ) {
+                attribute_array.push(val.id)
+                $( "#add_product_attribute" ).append(
+                    '<div id="'+val.id+'">'+
+                    '<div class="form-group row mt-1 color_input_box">'
+                    +'<label for="color" class="col-md-4 col-form-label text-md-right">Color</label>'
+                    +'<div class="col-md-6">'
+                    +'<input id="color" '+disabled+' value="'+val.color+'" type="color" class="form-control" name="color" required autocomplete="color" autofocus>'
+                    +'</div>'
+                    +'</div>'
+                    +'<div class="form-group row mt-1 price_input_box">'
+                    +'<label for="price" class="col-md-4 col-form-label text-md-right">Price</label>'
+                    +'<div class="col-md-6">'
+                    +'<input id="price"  '+disabled+'  value="'+val.price+'"  type="number" class="appearance-none form-control" name="Price" required autocomplete="price" autofocus>'
+                    +'</div>'
+                    +'</div>'
+                    +'</div>' )
+                if(i!=0){
+                    $("#attribute_edit_panel").append('<svg delete_id="'+val.id+'" class="mt-1 delete_attribute" width="15px" fill="currentColor" height="15px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome  - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M135.2 17.69C140.6 6.848 151.7 0 163.8 0H284.2C296.3 0 307.4 6.848 312.8 17.69L320 32H416C433.7 32 448 46.33 448 64C448 81.67 433.7 96 416 96H32C14.33 96 0 81.67 0 64C0 46.33 14.33 32 32 32H128L135.2 17.69zM31.1 128H416V448C416 483.3 387.3 512 352 512H95.1C60.65 512 31.1 483.3 31.1 448V128zM111.1 208V432C111.1 440.8 119.2 448 127.1 448C136.8 448 143.1 440.8 143.1 432V208C143.1 199.2 136.8 192 127.1 192C119.2 192 111.1 199.2 111.1 208zM207.1 208V432C207.1 440.8 215.2 448 223.1 448C232.8 448 240 440.8 240 432V208C240 199.2 232.8 192 223.1 192C215.2 192 207.1 199.2 207.1 208zM304 208V432C304 440.8 311.2 448 320 448C328.8 448 336 440.8 336 432V208C336 199.2 328.8 192 320 192C311.2 192 304 199.2 304 208z"/></svg>')
+                }
+            });
+
+
+            $(document).on('click', '.delete_attribute', function() {
+                if($("#user_role").val() == 1){
+                    $( '#' + $(this).attr("delete_id") ).remove()
+                    $(this).remove()
+                    attribute_array.splice(attribute_array.indexOf($(this).attr("delete_id")) , 1 );
+                }
+
+            }) ;
+            $("#new_attribute").click(function() {
+                if($("#user_role").val() == 1){
+                    var d = new Date().getTime();
+                    attribute_array.push(d.toString())
+                    $( "#add_product_attribute" ).append(
+                        '<div id="'+d+'">'+
+                        '<div class="form-group row mt-1 color_input_box">'
+                        +'<label for="color" class="col-md-4 col-form-label text-md-right">Color</label>'
+                        +'<div class="col-md-6">'
+                        +'<input id="color" type="color" class="form-control" name="color" required autocomplete="color" autofocus>'
+                        +'</div>'
+                        +'</div>'
+                        +'<div class="form-group row mt-1 price_input_box">'
+                        +'<label for="price" class="col-md-4 col-form-label text-md-right">Price</label>'
+                        +'<div class="col-md-6">'
+                        +'<input id="price" type="number" class="appearance-none form-control" name="Price" required autocomplete="price" autofocus>'
+                        +'</div>'
+                        +'</div>'
+                        +'</div>' )
+                    $("#attribute_edit_panel").append('<svg delete_id="'+d+'" class="mt-1 delete_attribute" width="15px" fill="currentColor" height="15px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome  - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M135.2 17.69C140.6 6.848 151.7 0 163.8 0H284.2C296.3 0 307.4 6.848 312.8 17.69L320 32H416C433.7 32 448 46.33 448 64C448 81.67 433.7 96 416 96H32C14.33 96 0 81.67 0 64C0 46.33 14.33 32 32 32H128L135.2 17.69zM31.1 128H416V448C416 483.3 387.3 512 352 512H95.1C60.65 512 31.1 483.3 31.1 448V128zM111.1 208V432C111.1 440.8 119.2 448 127.1 448C136.8 448 143.1 440.8 143.1 432V208C143.1 199.2 136.8 192 127.1 192C119.2 192 111.1 199.2 111.1 208zM207.1 208V432C207.1 440.8 215.2 448 223.1 448C232.8 448 240 440.8 240 432V208C240 199.2 232.8 192 223.1 192C215.2 192 207.1 199.2 207.1 208zM304 208V432C304 440.8 311.2 448 320 448C328.8 448 336 440.8 336 432V208C336 199.2 328.8 192 320 192C311.2 192 304 199.2 304 208z"/></svg>')
+                }
+            });
+            $("#submit_button").click(function (){
+                if($( '#'+attribute_array[0]+'>div>div>:input[type="color"]').val() !="" && $( '#'+attribute_array[0]+'>div>div>:input[type="number"]').val() != ""){
+                    jQuery.each( attribute_array, function( i, val ) {
+                        if($( '#'+val+'>div>div>:input[type="number"]').val()!=''){
+                            attribute_json.push({
+                                id: val,
+                                color: $( '#'+val+'>div>div>:input[type="color"]').val(),
+                                price: $( '#'+val+'>div>div>:input[type="number"]').val()
+                            })
+                        }
+
+                    });
+                    var files = $('#photo')[0].files
+                    var myformData = new FormData();
+                    myformData.append('_token', $("input[name='_token']").val());
+                    myformData.append('_method', 'PUT');
+                    myformData.append('name', $("#name").val());
+                    myformData.append('description', $("#description").val());
+                    if(files[0]==undefined){
+                        myformData.append('photo', $("#product_photo").attr("photo_name"));
+                    } else{
+                        myformData.append('photo', files[0]);
+                    }
+                    myformData.append('attributes', JSON.stringify(attribute_json));
+                    myformData.append('category_id', $("#category_id").val());
+                    myformData.append('meta_title', $("#meta_title").val());
+                    myformData.append('meta_description', $("#meta_description").val());
+                    $.ajax({
+                        type: "POST",
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url: '/admin/products/'+id,
+                        processData: false,
+                        contentType: false,
+                        cache: false,
+                        data: myformData,
+                        success: function(response){
+                            window.location = '/admin/products'
+                        },
+                        error: function(response) {
+                            location.reload();
+                        }
+                    });
+                } else if($( '#'+attribute_array[0]+'>div>div>:input[type="color"]').val() ==""){
+                    $( '#'+attribute_array[0]+'>div>div:input[type="color"]').addClass('is-invalid')
+                    $( '#'+attribute_array[0]+'>div>.color_input_box').append('<div class="alert text-danger mb-0 p-0">Field is required</div>')
+                } else if($( '#'+attribute_array[0]+'>div>div>:input[type="number"]').val() ==""){
+                    $( '#'+attribute_array[0]+'>div>div:input[type="number"]').addClass('is-invalid')
+                    $( '#'+attribute_array[0]+'>div>.price_input_box').append('<div class="alert text-danger mb-0 p-0">Field is required</div>')
+                }
+
+            })
+        });
+    </script>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/html/lifebeget/resources/views/admin/product/edit.blade.php ENDPATH**/ ?>
