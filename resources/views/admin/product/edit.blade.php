@@ -55,24 +55,6 @@
                                     <svg id="new_attribute" width="20px" height="20px" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M432 256c0 17.69-14.33 32.01-32 32.01H256v144c0 17.69-14.33 31.99-32 31.99s-32-14.3-32-31.99v-144H48c-17.67 0-32-14.32-32-32.01s14.33-31.99 32-31.99H192v-144c0-17.69 14.33-32.01 32-32.01s32 14.32 32 32.01v144h144C417.7 224 432 238.3 432 256z"/></svg>
                                 </div>
                                 <div class="card-body" id="add_product_attribute">
-{{--                                    <div id="1">--}}
-{{--                                        <div class="form-group row mt-1">--}}
-{{--                                            <label for="color" class="col-md-4 col-form-label text-md-right">{{ __('Color') }}</label>--}}
-
-{{--                                            <div class="col-md-6 color_input_box">--}}
-{{--                                                <input id="color" type="color" class="form-control" name="color" required autocomplete="color" autofocus>--}}
-
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="form-group row mt-1 price_input_box">--}}
-{{--                                            <label for="price" class="col-md-4 col-form-label text-md-right">{{ __('Price') }}</label>--}}
-
-{{--                                            <div class="col-md-6">--}}
-{{--                                                <input id="price" type="number" class="appearance-none form-control" name="Price" required autocomplete="price" autofocus>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-
                                 </div>
 
                             </div>
